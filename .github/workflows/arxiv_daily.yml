@@ -4,7 +4,7 @@ on:
   schedule:
     # 北京时间19:15 = UTC 11:15
     - cron: '20 11 * * *'
-  workflow_dispatch: # 允许手动触发
+
 
 jobs:
   send-digest:
