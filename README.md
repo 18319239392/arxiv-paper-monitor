@@ -114,7 +114,7 @@ A：
 2.  GitHub Actions 的定时触发可能有几分钟延迟。
 
 **Q：如何修改搜索的关键词？**
-A：直接修改项目根目录下 `.env` 文件中的 **`SEARCH_KEYWORDS`** 变量值，用英文逗号分隔多个关键词。此修改主要影响本地运行。若需云端生效，可考虑将关键词也设为 Secret，或在代码中直接修改 `config.py`。
+A：直接修改项目根目录下 `.env` 文件中的 **`SEARCH_KEYWORDS`** 变量值，用英文逗号分隔多个关键词。
 
 **Q：可以同时监控多个研究方向吗？**
 A：可以。在 `SEARCH_KEYWORDS` 中用逗号添加更多关键词即可，例如：`Quantum computing, Superconductivity, Machine Learning`。
