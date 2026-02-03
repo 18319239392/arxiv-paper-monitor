@@ -14,7 +14,7 @@ class Config:
     MAX_RESULTS = int(os.getenv("MAX_RESULTS", 20))
     
     # 定时任务配置
-    SCHEDULE_TIME = "09:00"  # 每天9点
+    SCHEDULE_TIME = "14:40"  # 每天9点
     TEST_MODE = False  # 测试模式，为True时立即运行
     
     # 日志配置
