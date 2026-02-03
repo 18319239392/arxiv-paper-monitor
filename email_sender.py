@@ -234,7 +234,7 @@ class EmailSender:
                         pass  # 忽略所有退出错误
                     
             elif "163.com" in sender:
-                with smtplib.SMTP('smtp.163.com', 587, timeout=30) as server:
+                with smtplib.SMTP('smtp.163.com', 465, timeout=30) as server:
                     server.starttls()
                     server.login(sender, password)
                     server.send_message(msg)
