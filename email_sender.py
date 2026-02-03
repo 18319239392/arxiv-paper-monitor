@@ -18,7 +18,7 @@ class EmailSender:
         current_date = datetime.now().strftime('%Y-%m-%d')
         
         try:
-            subject = f"Arxiv里德堡原子论文摘要 - {current_date}"
+            subject = f"arXiv atomic论文摘要 - {current_date}"
             
             if papers:
                 # 有论文的情况
@@ -74,7 +74,7 @@ class EmailSender:
                 <div class="header">
                     <div class="icon">📭</div>
                     <h1 style="color: #6c757d;">今日无新论文</h1>
-                    <p>Arxiv 里德堡原子论文监控报告</p>
+                    <p>Arxiv 原子论文监控报告</p>
                 </div>
                 
                 <div class="content">
