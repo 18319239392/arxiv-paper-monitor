@@ -10,7 +10,7 @@ class Config:
     RECIPIENT_EMAIL = os.getenv("RECIPIENT_EMAIL")
     
     # Arxiv配置
-    SEARCH_KEYWORDS = os.getenv("SEARCH_KEYWORDS", "atomic, spinwave, SU(1,1), interferomter, Raman amplifier").split(",")
+    SEARCH_KEYWORDS = os.getenv("SEARCH_KEYWORDS", "Raman").split(",")
     MAX_RESULTS = int(os.getenv("MAX_RESULTS", 20))
     
     # 定时任务配置
