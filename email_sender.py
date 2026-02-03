@@ -147,7 +147,7 @@ class EmailSender:
     def _build_text_content(self, papers, summaries):
         """构建纯文本内容"""
         content = [
-            f"Arxiv 里德堡原子论文每日摘要",
+            f"arXiv 原子论文每日摘要",
             f"生成时间: {datetime.now().strftime('%Y-%m-%d %H:%M')}",
             f"共发现 {len(papers)} 篇相关论文",
             "=" * 60,
@@ -180,7 +180,7 @@ class EmailSender:
         </head>
         <body>
             <div class="header">
-                <h1>📚 Arxiv 里德堡原子论文每日摘要</h1>
+                <h1>📚 arXiv 原子论文每日摘要</h1>
                 <p>日期: {datetime.now().strftime('%Y年%m月%d日')} | 共 {len(papers)} 篇论文</p>
             </div>
         """
