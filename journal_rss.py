@@ -115,6 +115,8 @@ class JournalRSSFetcher:
             except Exception:
                 continue
 
+        if papers:
+            logger.info(f"  {journal_name}: 从 RSS 获取 {len(papers)} 篇论文")
         return papers
 
     def _matches_keywords(self, paper: Dict) -> bool:
