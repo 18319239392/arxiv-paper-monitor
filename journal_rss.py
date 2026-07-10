@@ -1,6 +1,8 @@
 """
-期刊 RSS 抓取器 — 支持 PRL、Nature、Science、Optica、APL 系列
-通过各期刊的 RSS 源获取最新论文，按关键词过滤
+期刊 RSS 抓取器 — APS、Nature、Science 系列（补充 arXiv 搜索）
+注意: 由于商业期刊常限制云服务器 IP 访问，GitHub Actions 环境可能无法获取 RSS。
+arXiv 已覆盖绝大多数物理学期刊论文，期刊 RSS 仅作补充。
+本地运行时通常可正常获取期刊 RSS。
 """
 import requests
 import feedparser
@@ -38,16 +40,9 @@ JOURNAL_RSS_FEEDS: List[tuple] = [
     ("Science", "https://www.science.org/rss/current.xml"),
     ("Science Advances", "https://www.science.org/rss/advances_current.xml"),
 
-    # --- Optica 系列 (GitHub Actions IP 可能被限) ---
-    # 注意: 绝大多数 Optica 论文已同步到 arXiv (physics.optics)
-    ("Optica", "https://opg.optica.org/rss/optica.xml"),
-    ("Optics Letters", "https://opg.optica.org/rss/ol.xml"),
-    ("Optics Express", "https://opg.optica.org/rss/oe.xml"),
-
-    # --- AIP / APL 系列 (GitHub Actions IP 可能被限) ---
-    # 注意: 绝大多数 AIP 论文已同步到 arXiv
-    ("APL", "https://pubs.aip.org/rss/apl.xml"),
-    ("APL Photonics", "https://pubs.aip.org/rss/app.xml"),
+    # --- Optica / AIP 系列 ---
+    # Optica 和 AIP 的 RSS 地址未确认，且绝大部分论文已同步到 arXiv
+    # 如需添加，可在此处配置正确的 RSS URL
 ]
 
 
