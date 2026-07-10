@@ -48,11 +48,15 @@ class ArxivFetcher:
                 title = entry.get('title', '')
                 summary = entry.get('description', '')
                 link = entry.get('link', '')
-                arxiv_id = entry.get('guid', link).split('/')[-1]
 
-                # 提取作者
+                # 从 arXiv URL 提取 ID (如 https://arxiv.org/abs/2607.06789)
+                arxiv_id = ''
+                if '/abs/' in link:
+                    arxiv_id = link.split('/abs/')[-1]
+
+                # 提取作者 — feedparser 将 dc:creator 映射为 author
                 authors = []
-                creator = entry.get('dc:creator', '') or entry.get('author', '')
+                creator = entry.get('author', '')
                 if creator:
                     authors = [a.strip() for a in creator.split(',')]
 
@@ -64,11 +68,10 @@ class ArxivFetcher:
                         if cat:
                             categories.append(cat)
 
-                # 解析发布日期
-                pub_date_str = entry.get('pubDate', '')
-                if pub_date_str:
-                    pub_date = feedparser._parse_date(pub_date_str)
-                    pub_date = pub_date.replace(tzinfo=timezone.utc)
+                # 解析发布日期 — feedparser 将 RSS <pubDate> 映射为 published_parsed
+                pub_parsed = entry.get('published_parsed')
+                if pub_parsed:
+                    pub_date = datetime(*pub_parsed[:6], tzinfo=timezone.utc)
                 else:
                     continue
 
@@ -91,9 +94,10 @@ class ArxivFetcher:
                 papers.append(paper)
 
             except Exception as e:
-                logger.debug(f"解析 RSS 条目失败: {e}")
+                logger.warning(f"解析 RSS 条目失败: {e}")
                 continue
 
+        logger.info(f"  {category}: 从 RSS 共获取 {len(papers)} 篇论文")
         return papers
 
     def _matches_keywords(self, paper: Dict) -> bool:
