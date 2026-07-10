@@ -74,15 +74,27 @@ class JournalRSSFetcher:
                 summary = entry.get('summary', '') or entry.get('description', '')
                 link = entry.get('link', '')
 
-                # 解析日期
-                pub_parsed = entry.get('published_parsed')
-                if not pub_parsed:
-                    continue
-                pub_date = datetime(*pub_parsed[:6], tzinfo=timezone.utc)
+                # 解析日期 — 兼容 RSS 1.0/2.0 和 Atom
+                pub_date = None
+                pub_parsed = entry.get('published_parsed') or entry.get('updated_parsed')
+                if pub_parsed:
+                    pub_date = datetime(*pub_parsed[:6], tzinfo=timezone.utc)
+                else:
+                    # 尝试从字符串解析 (RSS 1.0 dc:date 等)
+                    date_str = entry.get('published') or entry.get('updated') or entry.get('dc:date', '')
+                    if date_str:
+                        try:
+                            from email.utils import parsedate_to_datetime
+                            pub_date = parsedate_to_datetime(date_str).replace(tzinfo=timezone.utc)
+                        except Exception:
+                            pass
+                if not pub_date:
+                    # 最后兜底：使用当前时间
+                    pub_date = datetime.now(timezone.utc)
 
-                # 提取作者
+                # 提取作者 — 兼容多种 RSS 格式
                 authors = []
-                author_str = entry.get('author', '')
+                author_str = entry.get('author', '') or entry.get('dc:creator', '')
                 if author_str:
                     authors = [a.strip() for a in author_str.split(',')]
 
