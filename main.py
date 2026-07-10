@@ -5,7 +5,7 @@ from datetime import datetime
 import logging
 
 from config import Config
-from unified_fetcher import UnifiedPaperFetcher
+from UnifiedFetcher import UnifiedPaperFetcher
 #from arxiv_fetcher import ArxivFetcher
 from email_sender import EmailSender
 
